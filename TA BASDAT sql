@@ -1,0 +1,121 @@
+=> Create tablespace
+SQL> CREATE TABLESPACE nandareva06949
+  2  datafile 'F:\coba\nandareva06949.dbf'
+  3  size 30M;
+
+Tablespace created.
+
+=> Create User
+SQL> CREATE USER nandarsh_06949
+  2  IDENTIFIED BY nandaa
+  3  DEFAULT TABLESPACE nandareva06949
+  4  QUOTA 30M ON nandareva06949;
+
+User created.
+SQL> conn nandarsh_06949/nanda
+Connected.
+
+=> Create table like disgn project
+SQL> create table owner
+  2  (
+  3  Nama_owner VARCHAR2(15),
+  4  No_hp NUMBER(12),
+  5  Alamat VARCHAR2(100),
+  6  constraint PK_Owner primary key (Nama_owner)
+  7  );
+
+Table created
+SQL> create table pelanggan
+  2  (
+  3  Nama_pelanggan VARCHAR2(15),
+  4  No_telp NUMBER(12),
+  5  Alamat VARCHAR2(100),
+  6  constraint PK_Pelanggan primary key (Nama_pelanggan)
+  7  );
+Table created.
+SQL> create table data_pesanan
+  2  (
+  3  Tanggal Date,
+  4  Jumlah_pesanan NUMBER(4),
+  5  Jenis_barang INTEGER,
+  6  constraint PK_Data_pesanan primary key (Tanggal)
+  7  );
+
+Table created.
+SQL> create table transaksi
+  2  (
+  3  Id_transaksi INTEGER not null,
+  4  Tanggal_transaksi Date,
+  5  Total_bayar FLOAT(6),
+  6  constraint PK_Transaksi primary key (Id_transaksi)
+  7  );
+
+Table created.
+SQL> create table barang
+  2  (
+  3  Nama_barang VARCHAR2(50),
+  4  Harga_barnag NUMBER(9),
+  5  Jenis_barang INTEGER,
+  6  constraint PK_Barang primary key (Nama_barang)
+  7  );
+
+Table created.
+
+=> Insert Table
+SQL> insert into login (Username, Password, Id_owner) values ('Paimo', 'bebas', 1);
+
+1 row created.
+
+SQL> insert into login (Username, Password, Id_owner) values ('Barjo', 'bebas2', 2);
+
+1 row created.
+
+=> Insert Table (multiple)
+SQL> insert all
+  2  into jenis_barang (Id_jenis_barang, Nama_jenis_barang) values (1, 'Roti Tawar')
+  3  into jenis_barang (Id_jenis_barang, Nama_jenis_barang) values (2, 'Roti Kasur')
+  4  into jenis_barang (Id_jenis_barang, Nama_jenis_barang) values (3, 'Roti Manis')
+  5  select 1 from dual;
+3 rows created.
+
+SQL> insert all
+  2  into barang (Id_barang, Id_jenis_barang, Nama_barang, Harga_barang, Stok) values (1, 1, 'Roti Tawar Kentang', 15000, 10)
+  3  into barang (Id_barang, Id_jenis_barang, Nama_barang, Harga_barang, Stok) values (2, 2, 'Roti Kasur Coklat Keju', 17000, 11)
+  4  into barang (Id_barang, Id_jenis_barang, Nama_barang, Harga_barang, Stok) values (3, 3, 'Roti Manis Coklat', 2000, 25)
+  5  select 1 from dual;
+3 rows created.
+
+SQL> insert all
+  2  into Detail_transaksi (Id_barang, Id_transaksi, Jumlah) values (1, 1, 4)
+  3  into Detail_transaksi (Id_barang, Id_transaksi, Jumlah) values (2, 2, 6)
+  4  into Detail_transaksi (Id_barang, Id_transaksi, Jumlah) values (3, 3, 15)
+  5  select 1 from dual;
+
+3 rows created.
+
+=> Delete Table
+SQL> delete from jenis_barang
+  2  where id_jenis_barang = 4;
+
+1 row deleted.
+
+SQL> delete from jenis_barang
+  2  where id_jenis_barang = 5;
+
+1 row deleted.
+
+=> Update Table
+SQL> update barang
+  2  set nama_barang = 'Roti Manis Mix'
+  3  where nama_barang like '%a%' or nama_barang like '%t%' and id_barang < 3;
+
+3 rows updated.
+
+SQL> update barang
+  2  set nama_barang = 'Roti Manis Stroberi'
+  3  where nama_barang like '%a%' or nama_barang like '%m%' and id_barang < 3;
+
+3 rows updated.
+
+
+
